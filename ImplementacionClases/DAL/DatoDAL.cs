@@ -4,24 +4,9 @@ namespace ImplementacionClases.DAL
 {
     public class DatoDAL
     {
-        private List<DatoDTO> listaDatos;
-
-        public DatoDAL()
-        {
-            this.listaDatos = new List<DatoDTO>();
-        }
-
         public bool Insertar(DatoDTO datos)
         {
-            try
-            {
-                listaDatos.Add(datos);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return DatoDTO.Add(datos);
         }
 
         public bool Actualizar(DatoDTO datos)
@@ -37,7 +22,7 @@ namespace ImplementacionClases.DAL
         public List<DatoDTO> Listar()
         {
             // return null;
-            return listaDatos;
+            return DatoDTO.List();
         }
 
     }

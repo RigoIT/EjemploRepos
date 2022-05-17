@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // Console.WriteLine("Hello, World!");
 using ImplementacionClases.Utils;
+using ImplementacionClases.DTO; // Import para usar clases desde DTO
+using ImplementacionClases.DAL; // Impor para usar clases desde DAL
 
 // Ejemplo de Clase estática:
 // Console.WriteLine(ConsoleUtils.Saludar("Enrique"));
@@ -44,10 +46,11 @@ static bool Menu()
     switch (opcion)
     {
         case "1":
-            Console.WriteLine("Escogió la opción 1");
+            Console.WriteLine("Listado de datos registrados");
+            OpcionListar();
             break;
         case "2":
-            Console.WriteLine("Escogió la opción 2");
+            // Console.WriteLine("Escogió la opción 2");
             OpcionInsertar();
             break;
         case "0":
@@ -62,6 +65,26 @@ static bool Menu()
     return continuar;
 }
 
+static void OpcionListar()
+{
+    DatoDAL datoDAL = new DatoDAL(); // Llamar a capa de acceso a datos
+
+    List<DatoDTO> datos = new List<DatoDTO>(); // crear una lista para obtener los datos
+
+    datos = datoDAL.Listar(); // obtener lista desde capa de acceso a datos
+
+    // recorrer y mostrar datos de cada elemento de lista
+    foreach (DatoDTO dato in datos)
+    {
+        Console.WriteLine("----------------------------------------------------------");
+        Console.Write($"Id: {dato.Id} - ");
+        Console.Write($"Flujo: {dato.Flujo} - ");
+        Console.Write($"Temperatura: {dato.Temperatura} - ");
+        Console.Write($"Nivel: {dato.Nivel} - ");
+        Console.Write($"Voltaje: {dato.Voltaje}\n");
+    } 
+}
+
 static void OpcionInsertar()
 {
     /*
@@ -71,24 +94,53 @@ static void OpcionInsertar()
         float temperatura
         float voltaje
      */
-    Console.WriteLine("bla bla");
-    string respuesta = Console.ReadLine();
 
-    // EJEMPLOS DE CONVERSION
-    // 1) Cualquier cosa a string
-    int i = 5;
-    i.ToString();
-    0xfb00.ToString(); // hexadecimal a string
+    // Crearemos una instancia de DatoDAL
+    DatoDAL datoDAL = new DatoDAL();
 
-    // Utilizando la clase Convert (sirve a varios tipos)
-    int convertido = Convert.ToInt32("-100");
+    try
+    {
+        Console.WriteLine("Ingrese el ID:");
+        int id = Convert.ToInt32(Console.ReadLine());
 
-    // Conversión explícita
-    int test = 12345;
-    float conDecimales = (float) test;
+        Console.WriteLine("Ingrese valor de temperatura:");
+        float temperatura = float.Parse(Console.ReadLine());
 
-    // Conversión implícita
-    int otroTest = 123456;
-    float otroDecimal = otroTest; //123456.0
-   
+        Console.WriteLine("Ingrese valor de flujo:");
+        float flujo = float.Parse(Console.ReadLine());
+
+        Console.WriteLine("Ingrese valor de nivel:");
+        float nivel = float.Parse(Console.ReadLine());
+
+        Console.WriteLine("Ingrese valor de voltaje:");
+        float voltaje = float.Parse(Console.ReadLine());
+
+        // Crea el objeto
+        DatoDTO nuevoIngresoDato = new DatoDTO() 
+        { 
+            Id = id, 
+            Flujo = flujo,
+            Nivel = nivel,
+            Temperatura = temperatura,
+            Voltaje = voltaje
+        };
+
+        // Intentamos ingresar y verificar operación
+        if(datoDAL.Insertar(nuevoIngresoDato))
+        {
+            // si resulta OK
+            Console.WriteLine($"Se ha insertado un nuevo dato");
+        } 
+        else
+        {
+            Console.WriteLine($"No se ha podido insertar el nuevo dato");
+        }
+
+
+    }
+    catch (Exception)
+    {
+        Console.WriteLine("Ingrese correctamente los datos e intente otra vez");
+    }
+     
 }
