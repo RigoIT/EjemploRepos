@@ -2,7 +2,7 @@
 // Console.WriteLine("Hello, World!");
 using ImplementacionClases.Utils;
 using ImplementacionClases.DTO; // Import para usar clases desde DTO
-using ImplementacionClases.DAL; // Impor para usar clases desde DAL
+using ImplementacionClases.DAL; // Import para usar clases desde DAL
 
 // Ejemplo de Clase estática:
 // Console.WriteLine(ConsoleUtils.Saludar("Enrique"));
@@ -38,6 +38,8 @@ static bool Menu()
     Console.WriteLine("================");
     Console.WriteLine("1) Listar datos");
     Console.WriteLine("2) Agregar datos");
+    Console.WriteLine("3) Actualizar datos");
+    Console.WriteLine("4) Eliminar datos");
     Console.WriteLine("");
     Console.WriteLine("0) Salir");
 
@@ -50,8 +52,15 @@ static bool Menu()
             OpcionListar();
             break;
         case "2":
-            // Console.WriteLine("Escogió la opción 2");
+            Console.WriteLine("Insertar un nuevo dato");
             OpcionInsertar();
+            break;
+        case "3":
+            Console.WriteLine("Actualizar un dato existente");
+            OpcionActualizar();
+            break;
+        case "4":
+            Console.WriteLine("Eliminar un dato existente");
             break;
         case "0":
             Console.WriteLine("Saliendo del programa ...");
@@ -63,6 +72,61 @@ static bool Menu()
     }
     
     return continuar;
+}
+
+static void OpcionActualizar()
+{
+    DatoDAL datoDAL = new DatoDAL();
+
+    // Tarea 1: Consultar por el ID a buscar
+    Console.WriteLine("Ingrese un ID a buscar");
+    string opcion = Console.ReadLine().Trim(); // " A " => "A"
+
+    try
+    {
+        // Tarea 2: Buscar el ID ingresado
+        DatoDTO resultado = datoDAL.BuscarPorId(int.Parse(opcion));
+
+        if (resultado != null) // si encontró efectivamente
+        {
+            // Tarea 3: Consultar al usuario qué se desea actualizar
+            Console.WriteLine("¿Desea actualizar la temperatura? (Y/N)");
+            string opcionTemperatura = Console.ReadLine().Trim();
+            if (opcionTemperatura.ToUpper() == "Y")
+            {
+                Console.WriteLine($"Ingrese temperatura nueva: (actual: {resultado.Temperatura}");
+                string nuevaTemperatura = Console.ReadLine().Trim();
+                resultado.Temperatura = Convert.ToInt32(nuevaTemperatura);
+            }
+
+            Console.WriteLine("¿Desea actualizar el flujo? (Y/N)");
+            string opcionFlujo = Console.ReadLine().Trim();
+            bool editarFlujo = opcionFlujo.ToUpper() == "Y";
+
+            Console.WriteLine("¿Desea actualizar el nivel? (Y/N)");
+            string opcionNivel = Console.ReadLine().Trim();
+            bool editarNivel = opcionNivel.ToUpper() == "Y";
+
+            Console.WriteLine("¿Desea actualizar el voltaje? (Y/N)");
+            string opcionVoltaje = Console.ReadLine().Trim();
+            bool editarVoltaje = opcionVoltaje.ToUpper() == "Y";
+
+
+            // Tarea 4: Editar valores
+        } 
+        else // si no encontró elementos con ese ID
+        {
+
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("Debe escribir un número válido");        
+    }
+    finally
+    {
+        Console.WriteLine("Opción de actualizar terminada");
+    }
 }
 
 static void OpcionListar()
