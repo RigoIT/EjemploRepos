@@ -12,7 +12,7 @@ namespace ImplementacionClases.DAL
         public bool Actualizar(DatoDTO dato)
         {
             // obtener índice de objeto a editar
-            int indice = BuscarPorId(dato); 
+            int indice = BuscarPorIdSimple(dato.Id); 
             
             // retornar el resultado de la edición del objeto en la lista
             return DatoDTO.Edit(dato, indice);  
@@ -29,18 +29,23 @@ namespace ImplementacionClases.DAL
             return DatoDTO.List();
         }
 
-        public int BuscarPorId(DatoDTO dato)
+        public int BuscarPorIdSimple(int id)
         {
             // método 1: tradicional (intro a programación)
             for (int i = 0; i < DatoDTO.List().Count; i++)
             {
                 // si encuentra elemento
-                if (DatoDTO.List()[i].Id == dato.Id)
+                if (DatoDTO.List()[i].Id == id)
                 {
                     return i; // retorna índice de elemento
                 }
             }
-            return 0;
+            return -1;
+        }
+
+        public bool EliminarPorIndice(int indice)
+        {
+            return DatoDTO.RemoveAtIndex(indice);
         }
 
         // el "?" implica que el retorno puede ser nulo

@@ -61,6 +61,7 @@ static bool Menu()
             break;
         case "4":
             Console.WriteLine("Eliminar un dato existente");
+            OpcionEliminar();
             break;
         case "0":
             Console.WriteLine("Saliendo del programa ...");
@@ -72,6 +73,28 @@ static bool Menu()
     }
     
     return continuar;
+}
+
+static void OpcionEliminar()
+{
+    DatoDAL datoDAL = new DatoDAL();
+
+    // Tarea 1: Consultar por el ID a buscar
+    Console.WriteLine("Ingrese un ID a buscar");
+    string opcion = Console.ReadLine().Trim(); // " A " => "A"
+
+    int resultadoEncontrado = datoDAL.BuscarPorIdSimple(int.Parse(opcion));
+
+    if (resultadoEncontrado >= 0) // se encontró resultado
+    {
+        datoDAL.EliminarPorIndice(resultadoEncontrado);
+        Console.WriteLine("El elemento ha sido eliminado");
+    } 
+    else // no se encontró resultado para ese id
+    {
+        Console.WriteLine("No se ha podido eliminar el elemento");
+    }
+
 }
 
 static void OpcionActualizar()

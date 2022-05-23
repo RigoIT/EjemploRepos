@@ -32,7 +32,7 @@ namespace ImplementacionClases.DTO
         // (0 °C × 9/5) + 32 = 32 °F
         public BancoDTO Banco { get => banco; set => banco = value; }
         public CeldaDTO Celda { get => celda; set => celda = value; }
-       
+
         // Métodos
         public static bool Add(DatoDTO nuevosDatos)
         {
@@ -54,9 +54,9 @@ namespace ImplementacionClases.DTO
 
         public static int Find(int id)
         {
-            for(int i=0; i<datos.Count; i++) // recorrer lista a través de for y su conteo
+            for (int i = 0; i < datos.Count; i++) // recorrer lista a través de for y su conteo
             {
-                if(datos[i].id == id) // verificar si el atributo id es igual al enviado
+                if (datos[i].id == id) // verificar si el atributo id es igual al enviado
                 {
                     return i; // en caso de encontrarse, se devuelve la posición
                 }
@@ -67,31 +67,41 @@ namespace ImplementacionClases.DTO
 
         public static DatoDTO Find(DatoDTO dato)
         {
-            for(int i=0; i<datos.Count; i++) // recorrer lista a través de for y su conteo
+            for (int i = 0; i < datos.Count; i++) // recorrer lista a través de for y su conteo
             {
-                if(datos[i].id == dato.Id) // verificar si el atributo id es igual al enviado 
-                { 
+                if (datos[i].id == dato.Id) // verificar si el atributo id es igual al enviado 
+                {
                     return datos[i]; // en caso de encontrarse, devuelve el objeto de tipo DatoDTO
                 }
             }
 
             return new DatoDTO(); // si no se encuentra, pasa del for y devuelve un objeto vacío
-        } 
+        }
 
         public static bool Edit(DatoDTO dato, int indice)
         {
             try
             {
                 // reemplazar elemento en el índice indicado
-                datos[indice] = dato; 
+                datos[indice] = dato;
 
                 return true;
             } catch (Exception)
             {
                 return false;
-            }            
+            }
         }
 
+        public static bool RemoveAtIndex(int index)
+        {
+            if (index >= 0)
+            {
+                datos.RemoveAt(index); 
+                // RemoveAt para eliminar en arreglos por su índice
+            }
+
+            return false; // temporal para compilar
+        }
         public static bool Remove(int id)
         {
             int idEncontrado = Find(id);
