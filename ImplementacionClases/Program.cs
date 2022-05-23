@@ -94,25 +94,42 @@ static void OpcionActualizar()
             string opcionTemperatura = Console.ReadLine().Trim();
             if (opcionTemperatura.ToUpper() == "Y")
             {
-                Console.WriteLine($"Ingrese temperatura nueva: (actual: {resultado.Temperatura}");
+                Console.WriteLine($"Ingrese temperatura nueva: (actual: {resultado.Temperatura})");
                 string nuevaTemperatura = Console.ReadLine().Trim();
-                resultado.Temperatura = Convert.ToInt32(nuevaTemperatura);
+                resultado.Temperatura = float.Parse(nuevaTemperatura);
             }
 
             Console.WriteLine("¿Desea actualizar el flujo? (Y/N)");
             string opcionFlujo = Console.ReadLine().Trim();
             bool editarFlujo = opcionFlujo.ToUpper() == "Y";
+            if (opcionFlujo.ToUpper() == "Y")
+            {
+                Console.WriteLine($"Ingrese flujo nuevo: (actual: {resultado.Flujo})");
+                string nuevoFlujo = Console.ReadLine().Trim();
+                resultado.Flujo = float.Parse(nuevoFlujo);
+            }
 
             Console.WriteLine("¿Desea actualizar el nivel? (Y/N)");
             string opcionNivel = Console.ReadLine().Trim();
             bool editarNivel = opcionNivel.ToUpper() == "Y";
+            if (opcionNivel.ToUpper() == "Y")
+            {
+                Console.WriteLine($"Ingrese nivel nuevo: (actual: {resultado.Nivel})");
+                string nuevoNivel = Console.ReadLine().Trim();
+                resultado.Nivel = float.Parse(nuevoNivel);
+            }
 
             Console.WriteLine("¿Desea actualizar el voltaje? (Y/N)");
             string opcionVoltaje = Console.ReadLine().Trim();
             bool editarVoltaje = opcionVoltaje.ToUpper() == "Y";
+            if (opcionVoltaje.ToUpper() == "Y")
+            {
+                Console.WriteLine($"Ingrese voltaje nuevo: (actual: {resultado.Voltaje})");
+                string nuevoVoltaje = Console.ReadLine().Trim();
+                resultado.Voltaje = float.Parse(nuevoVoltaje);
+            }
 
-
-            // Tarea 4: Editar valores
+            // Tarea 4: Publicar objeto de cambio
         } 
         else // si no encontró elementos con ese ID
         {

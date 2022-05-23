@@ -78,6 +78,20 @@ namespace ImplementacionClases.DTO
             return new DatoDTO(); // si no se encuentra, pasa del for y devuelve un objeto vacío
         } 
 
+        public static bool Edit(DatoDTO dato, int indice)
+        {
+            try
+            {
+                // reemplazar elemento en el índice indicado
+                datos[indice] = dato; 
+
+                return true;
+            } catch (Exception)
+            {
+                return false;
+            }            
+        }
+
         public static bool Remove(int id)
         {
             int idEncontrado = Find(id);
